@@ -1,0 +1,17 @@
+.button {
+	-fx-font-size: 2em;
+}
+
+#operacion{
+	-fx-background-color: red;
+	-fx-text-fill: blue;
+}
+
+#tfl {
+	-fx-font-size: 3em;
+	-fx-display-caret: false;
+}
+
+#panel {
+	-fx-grid-lines-visible: true;
+}
