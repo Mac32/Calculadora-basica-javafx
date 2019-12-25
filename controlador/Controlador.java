@@ -1,10 +1,11 @@
 package controlador;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import logica.Logica;
 import ventana.Calculadora;
@@ -13,48 +14,70 @@ public class Controlador {
 
 	Calculadora calculadora;
 	Logica logica;
+	EventHandler<KeyEvent> EventosTeclado;
+	EventHandler<ActionEvent> EventosBotones;
 
 	public Controlador(Calculadora calculadora, Logica logica){
 
 		this.logica = logica;
 		this.calculadora = calculadora;
 
-		eventosCalculadora();
-
+		Manejadores();
+		AgregadoManejadores();
 	}
 
+	private void AgregadoManejadores() {
+		calculadora.s.addEventFilter(KeyEvent.KEY_RELEASED, EventosTeclado);
+		for(Button b: calculadora.p.botones){
+			b.addEventHandler(ActionEvent.ACTION, EventosBotones);
+		}
+	}
 
-	private void eventosCalculadora (){
+	private void Manejadores(){
 
-
-		calculadora.tfl.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-
-			public void handle(KeyEvent event) {logica.MarcarNumeroTeclado(event, calculadora);}
-
-		});
-
-
-
-		calculadora.tfl.focusedProperty().addListener(new ChangeListener<Boolean>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
+		//Eventos de teclado
+		EventosTeclado = new EventHandler<KeyEvent> (){
+			
+			KeyCodeCombination dividir = new KeyCodeCombination(KeyCode.DIGIT7, KeyCombination.SHIFT_DOWN);
+			KeyCodeCombination multiplicar = new KeyCodeCombination(KeyCode.PLUS, KeyCombination.SHIFT_DOWN);
+			KeyCodeCombination modulo = new KeyCodeCombination(KeyCode.DIGIT5, KeyCombination.SHIFT_DOWN);
+			
+			public void handle(KeyEvent e) {
+				if(e.getCode() == KeyCode.PLUS){logica.AsignarOperadorSuma(calculadora);}
+				
+				if(e.getCode() == KeyCode.MINUS){logica.AsignarOperadorResta(calculadora);} 
+				
+				if(e.getCode() == KeyCode.ENTER){logica.procesarOperacion(calculadora);}
+				
+				if(e.getCode() == KeyCode.BACK_SPACE){logica.BorrarNumero(calculadora);}
+				
+				if(e.getCode() == KeyCode.DELETE){logica.Limpiar(calculadora);}
+				
+				if(dividir.match(e)){
+					logica.AsignarOperadorDividir(calculadora);
+				}else if(multiplicar.match(e)){
+					logica.AsignarOperadorMultiplicar(calculadora);
+				}else if(modulo.match(e)){
+					logica.AsignarOperadorModulo(calculadora);
+				}else if(logica.isNumeric(e.getText())){
+					logica.MarcarNumeroTeclado(e, calculadora);
+				}
+				
+					
 
 			}
 
-
-		});
+		};
 		
-		for(Button b: calculadora.p.botones){
-			b.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>(){
-
-				@Override
-				public void handle(ActionEvent arg0) {
-					logica.MarcarNumeroBotones(arg0, calculadora, b);
-					
-				}
-			});
-		}
-
+		//Eventos de botones
+		EventosBotones = new EventHandler<ActionEvent>() {
+			
+			public void handle(ActionEvent e){
+				logica.MarcarNumeroBotones(e, calculadora, (Button) e.getSource());
+				
+			}
+		};
+		
 	}
+
 }

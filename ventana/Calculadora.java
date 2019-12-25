@@ -11,7 +11,7 @@ import ventana.componentes.PNumeros;
 public class Calculadora {
 
 	public PNumeros p;
-	Scene s;
+	public Scene s;
 	BorderPane borderPane;
 	HBox hb;
 	public TextField tfl;

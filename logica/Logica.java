@@ -13,16 +13,10 @@ public class Logica {
 	private double valor2 = 0;
 
 	public void MarcarNumeroTeclado (KeyEvent e, Calculadora calc){
-
-		if(isNumeric(e.getText())){
+		if(valor == 0 && valor2 == 0){
 			calc.tfl.appendText(e.getText());
-		}else if(e.getCode() == KeyCode.BACK_SPACE){
-			try{
-				calc.tfl.setText(calc.tfl.getText().substring(0,calc.tfl.getLength()-1));
-			}catch(StringIndexOutOfBoundsException e2){
-
-			}
-
+		}else{
+			calc.tfl.setText(e.getText());
 		}
 	}
 
@@ -35,6 +29,40 @@ public class Logica {
 		}
 	}
 
+	
+	public void AsignarOperadorSuma (Calculadora calc){
+		operador = "+";
+		AsignarValores(calc);
+	}
+	public void AsignarOperadorResta (Calculadora calc){
+		operador = "-";
+		AsignarValores(calc);
+	}
+	
+	public void AsignarOperadorMultiplicar (Calculadora calc){
+		operador = "x";
+		AsignarValores(calc);
+	}
+	
+	public void AsignarOperadorDividir (Calculadora calc){
+		operador = "/";
+		AsignarValores(calc);
+	}
+	
+	public void AsignarOperadorModulo (Calculadora calc){
+		operador = "%";
+		AsignarValores(calc);
+	}
+	
+	
+	public void Limpiar(Calculadora calc){
+		operador ="";
+		valor = 0;
+		valor2 = 0;
+		calc.tfl.setText("");
+	}
+	
+			
 	public void AsignarOperador(ActionEvent e, Calculadora calc, Button boton){
 
 		switch (boton.getText()) {
@@ -84,8 +112,17 @@ public class Logica {
 
 
 	}
+	
+	public void BorrarNumero(Calculadora calculadora){
+		if(valor == 0 && valor2 == 0){
+			if(calculadora.tfl.getText().length() > 0){
+				calculadora.tfl.setText(calculadora.tfl.getText().substring(0,calculadora.tfl.getLength()-1));
+			}
+		}
+	}
 
 	public void procesarOperacion(Calculadora calc){
+		
 		if(operador == "+"){
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
@@ -107,6 +144,7 @@ public class Logica {
 
 			}
 		}else if(operador == "x"){
+			
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor * valor2;
@@ -147,6 +185,40 @@ public class Logica {
 		} catch (NumberFormatException e) {
 			return false;
 		}
+	}
+	
+	private void AsignarValores (Calculadora calc){
+		try{
+		valor = Double.parseDouble(calc.tfl.getText());
+		calc.tfl.setText("");
+		valor2 = 0;
+		}catch (NumberFormatException e) {
+			
+		}
+	}
+
+	public String getOperador() {
+		return operador;
+	}
+
+	public void setOperador(String operador) {
+		this.operador = operador;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	public double getValor2() {
+		return valor2;
+	}
+
+	public void setValor2(double valor2) {
+		this.valor2 = valor2;
 	}
 
 }
