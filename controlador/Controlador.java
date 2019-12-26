@@ -53,6 +53,8 @@ public class Controlador {
 				
 				if(e.getCode() == KeyCode.DELETE){logica.Limpiar(calculadora);}
 				
+				if(e.getCode() == KeyCode.PERIOD){calculadora.p.btnPunto.fire();}
+				
 				if(dividir.match(e)){
 					calculadora.p.btnentre.fire();
 				}else if(multiplicar.match(e)){

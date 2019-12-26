@@ -3,6 +3,7 @@ package ventana.componentes;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -10,7 +11,6 @@ import javafx.stage.Stage;
 public class PNumeros extends GridPane{
 
 	public Button btnBorrar = new Button("C"),
-				  btnParentesis = new Button("()"),
 				  btnModulo = new Button("%"),
 				  btnentre= new Button("/"),
 				  btnpor = new Button("x"),
@@ -31,12 +31,11 @@ public class PNumeros extends GridPane{
 				  btn9 = new Button("9"),
 				  btn0 = new Button("0");
 	
-	public Button[] botones = {btnBorrar, btnParentesis, btnModulo, btnentre, btn1, btn2, btn3, btnpor, btn4, btn5, btn6, btnMenos, btn7, btn8, btn9, btnmas, btnMasMenos, btn0, btnPunto, btnigual};
+	public Button[] botones = {btnBorrar, btnModulo, btnentre, btn1, btn2, btn3, btnpor, btn4, btn5, btn6, btnMenos, btn7, btn8, btn9, btnmas, btnMasMenos, btn0, btnPunto, btnigual};
 	
 	public PNumeros(Stage stage){
 		
-		add(btnBorrar, 0,0);
-		add(btnParentesis, 1,0);
+		add(btnBorrar, 0, 0, 2, 1);
 		add(btnModulo, 2,0);
 		add(btnentre, 3,0);
 		add(btn1, 0,1);
@@ -58,7 +57,11 @@ public class PNumeros extends GridPane{
 		
 		setId("panel");
 		
+		btnModulo.setTooltip(new Tooltip("Division modular"));
+		
 		for(Button b: botones){
+			
+			//Para que no sea focusable
 			b.setFocusTraversable(false);
 			
 			//enlace al tamaño de ventana para redimencional los elementos

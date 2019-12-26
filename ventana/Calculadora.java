@@ -24,7 +24,7 @@ public class Calculadora {
 		stage.setTitle("Calculadora");
 		
 		tfl = new TextField();
-		tfl.setPrefSize(300, 50);
+		tfl.setPrefSize(250, 154.79);
 		tfl.setId("tfl");
 		tfl.setEditable(false);
 		tfl.setAlignment(Pos.CENTER_RIGHT);
@@ -46,8 +46,8 @@ public class Calculadora {
 		
 		s.getStylesheets().add(Calculadora.class.getResource("style.css").toExternalForm()); 
 		stage.setScene(s);
-		stage.setMinHeight(370);
-		stage.setMinWidth(316);
+		stage.setMinHeight(404.51);
+		stage.setMinWidth(250);
 		stage.setResizable(false);
 		stage.show();
 		

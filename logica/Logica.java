@@ -74,8 +74,17 @@ public class Logica {
 			break;
 
 		case "+/-":
-			calc.tfl.setText(String.valueOf(Double.parseDouble(calc.tfl.getText()) * -1));
+			if(!calc.tfl.getText().isEmpty()){
+				calc.tfl.setText(String.valueOf(Double.parseDouble(calc.tfl.getText()) * -1));
+			}
 			break;
+
+		case ".":
+			if(calc.tfl.getText().indexOf(".") == -1){
+				calc.tfl.appendText(".");
+			}
+			break;
+
 		case "=":
 
 			procesarOperacion(calc);
