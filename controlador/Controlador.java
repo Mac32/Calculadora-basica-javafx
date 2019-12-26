@@ -43,9 +43,9 @@ public class Controlador {
 			KeyCodeCombination modulo = new KeyCodeCombination(KeyCode.DIGIT5, KeyCombination.SHIFT_DOWN);
 			
 			public void handle(KeyEvent e) {
-				if(e.getCode() == KeyCode.PLUS){logica.AsignarOperadorSuma(calculadora);}
+				if(e.getCode() == KeyCode.PLUS){calculadora.p.btnmas.fire();}
 				
-				if(e.getCode() == KeyCode.MINUS){logica.AsignarOperadorResta(calculadora);} 
+				if(e.getCode() == KeyCode.MINUS){calculadora.p.btnMenos.fire();} 
 				
 				if(e.getCode() == KeyCode.ENTER){logica.procesarOperacion(calculadora);}
 				
@@ -54,11 +54,11 @@ public class Controlador {
 				if(e.getCode() == KeyCode.DELETE){logica.Limpiar(calculadora);}
 				
 				if(dividir.match(e)){
-					logica.AsignarOperadorDividir(calculadora);
+					calculadora.p.btnentre.fire();
 				}else if(multiplicar.match(e)){
-					logica.AsignarOperadorMultiplicar(calculadora);
+					calculadora.p.btnpor.fire();
 				}else if(modulo.match(e)){
-					logica.AsignarOperadorModulo(calculadora);
+					calculadora.p.btnModulo.fire();
 				}else if(logica.isNumeric(e.getText())){
 					logica.MarcarNumeroTeclado(e, calculadora);
 				}

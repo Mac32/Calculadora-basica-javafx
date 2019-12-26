@@ -1,19 +1,36 @@
 .button {
 	-fx-font-size: 2em;
-	-fx-text-fill: #0D0D0D;
-	-fx-background-color: #B3C8F2;
+	-fx-text-fill: #0699F0;
+	-fx-background-color: #292929;
+	-fx-border-color: #0699F0;
+}
+
+.button:hover {
+	-fx-text-fill: #292929;
+	-fx-background-color: #0699F0;
+}
+
+#panel{
+	-fx-background-color: #292929;
 }
 
 #operacion{
-	-fx-background-color: #5684BF;
-	-fx-text-fill: #B3C8F2;
+	-fx-text-fill: #0699F0;
+	-fx-background-color: #292929;
+}
+
+#operacion:hover{
+	-fx-text-fill: #292929;
+	-fx-background-color: #0699F0;
 }
 
 #tfl {
-	-fx-font-size: 3.3em;
+	-fx-font-size: 4.5em;
 	-fx-display-caret: false;
-	-fx-text-fill: #5684BF;
+	-fx-text-fill: #0699F0;
+	-fx-background-color: #292929;
 }
 
-#panel {
+.root{
+	-fx-background-color: red;
 }

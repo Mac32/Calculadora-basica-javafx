@@ -1,11 +1,13 @@
 package ventana;
 
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import ventana.componentes.PNumeros;
 
 public class Calculadora {
@@ -25,9 +27,11 @@ public class Calculadora {
 		tfl.setPrefSize(300, 50);
 		tfl.setId("tfl");
 		tfl.setEditable(false);
+		tfl.setAlignment(Pos.CENTER_RIGHT);
+		
 		
 		hb = new HBox();
-		
+		hb.setId("panel");
 		HBox.setHgrow(tfl, Priority.ALWAYS);
 		
 		hb.getChildren().add(tfl);

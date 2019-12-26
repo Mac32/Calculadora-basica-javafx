@@ -79,10 +79,10 @@ public class PNumeros extends GridPane{
 		
 		
 		setAlignment(Pos.CENTER);
-		setHgap(3);
-		setVgap(3);
+		setHgap(0);
+		setVgap(0);
 //		setHgrow(Priority.ALWAYS);
-		setPadding(new Insets(5, 5, 5, 5));
+		setPadding(new Insets(0, 0, 0, 0));
 		
 		
 	}

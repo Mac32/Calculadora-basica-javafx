@@ -2,7 +2,6 @@ package logica;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import ventana.Calculadora;
 
@@ -13,7 +12,7 @@ public class Logica {
 	private double valor2 = 0;
 
 	public void MarcarNumeroTeclado (KeyEvent e, Calculadora calc){
-		if(valor == 0 && valor2 == 0){
+		if(valor2 == 0){
 			calc.tfl.appendText(e.getText());
 		}else{
 			calc.tfl.setText(e.getText());
@@ -21,81 +20,51 @@ public class Logica {
 	}
 
 	public void MarcarNumeroBotones(ActionEvent e, Calculadora calc, Button boton){
+
 		if(isNumeric(boton.getText())){
-			calc.tfl.appendText(boton.getText());
+			if(valor2 == 0 ){
+				calc.tfl.appendText(boton.getText());
+			}else{
+				calc.tfl.setText(boton.getText());
+			}
 
 		}else{
 			AsignarOperador(e, calc, boton);
+
 		}
 	}
 
-	
-	public void AsignarOperadorSuma (Calculadora calc){
-		operador = "+";
-		AsignarValores(calc);
-	}
-	public void AsignarOperadorResta (Calculadora calc){
-		operador = "-";
-		AsignarValores(calc);
-	}
-	
-	public void AsignarOperadorMultiplicar (Calculadora calc){
-		operador = "x";
-		AsignarValores(calc);
-	}
-	
-	public void AsignarOperadorDividir (Calculadora calc){
-		operador = "/";
-		AsignarValores(calc);
-	}
-	
-	public void AsignarOperadorModulo (Calculadora calc){
-		operador = "%";
-		AsignarValores(calc);
-	}
-	
-	
 	public void Limpiar(Calculadora calc){
 		operador ="";
 		valor = 0;
 		valor2 = 0;
 		calc.tfl.setText("");
 	}
-	
-			
+
+
 	public void AsignarOperador(ActionEvent e, Calculadora calc, Button boton){
 
 		switch (boton.getText()) {
 		case "+":
 			operador = "+";
-			valor = Double.parseDouble(calc.tfl.getText());
-			calc.tfl.setText("");	
-			valor2 = 0;
-
+			AsignarValores(calc);
 			break;
 		case "-":
 			operador = "-";
-			valor = Double.parseDouble(calc.tfl.getText());
-			calc.tfl.setText("");
-			valor2 = 0;
+			AsignarValores(calc);
 			break;
 		case "x":
 			operador = "x";
-			valor = Double.parseDouble(calc.tfl.getText());
-			calc.tfl.setText("");
-			valor2 = 0;
+			AsignarValores(calc);
 			break;
 		case "/":
 			operador = "/";
-			valor = Double.parseDouble(calc.tfl.getText());
-			calc.tfl.setText("");
+			AsignarValores(calc);
 			break;
-			
+
 		case "%":
 			operador = "%";
-			valor = Double.parseDouble(calc.tfl.getText());
-			calc.tfl.setText("");
-			valor2 = 0;
+			AsignarValores(calc);
 			break;
 		case "C" :
 			operador ="";
@@ -103,18 +72,20 @@ public class Logica {
 			valor2 = 0;
 			calc.tfl.setText("");
 			break;
+
+		case "+/-":
+			calc.tfl.setText(String.valueOf(Double.parseDouble(calc.tfl.getText()) * -1));
+			break;
 		case "=":
 
 			procesarOperacion(calc);
 			break;
 
 		}
-
-
 	}
-	
+
 	public void BorrarNumero(Calculadora calculadora){
-		if(valor == 0 && valor2 == 0){
+		if(valor2 == 0){
 			if(calculadora.tfl.getText().length() > 0){
 				calculadora.tfl.setText(calculadora.tfl.getText().substring(0,calculadora.tfl.getLength()-1));
 			}
@@ -122,57 +93,74 @@ public class Logica {
 	}
 
 	public void procesarOperacion(Calculadora calc){
-		
+
 		if(operador == "+"){
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor + valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}else{
 				valor = valor + valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 
 			}
 		}else if(operador == "-"){
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor - valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}else{
 				valor = valor - valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 
 			}
 		}else if(operador == "x"){
-			
+
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor * valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}else{
 				valor = valor * valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 
 			}
 		}else if(operador == "/"){
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor / valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}else{
 				valor = valor / valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}
 		}else if(operador == "%"){
 			if(valor2 == 0){
 				valor2 = Double.parseDouble(calc.tfl.getText());
 				valor = valor % valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}else{
 				valor = valor % valor2;
-				calc.tfl.setText(String.valueOf(valor));
+				calc.tfl.setText(LimpiarDecimales(String.valueOf(valor)));
 			}
-			
+		}
+	}
+
+	private void AsignarValores (Calculadora calc){
+		try{
+			valor = Double.parseDouble(calc.tfl.getText());
+			calc.tfl.setText("");
+			valor2 = 0;
+		}catch (NumberFormatException e) {
+
+		}
+	}
+
+	private String LimpiarDecimales (String cadena){
+		if(cadena.indexOf(".0") == 1){
+			return cadena.replace(".0", "");
+		}else{
+			return cadena;
 		}
 	}
 
@@ -184,16 +172,6 @@ public class Logica {
 
 		} catch (NumberFormatException e) {
 			return false;
-		}
-	}
-	
-	private void AsignarValores (Calculadora calc){
-		try{
-		valor = Double.parseDouble(calc.tfl.getText());
-		calc.tfl.setText("");
-		valor2 = 0;
-		}catch (NumberFormatException e) {
-			
 		}
 	}
 
